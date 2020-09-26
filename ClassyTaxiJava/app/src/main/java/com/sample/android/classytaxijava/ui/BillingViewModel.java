@@ -57,6 +57,8 @@ public class BillingViewModel extends AndroidViewModel {
      */
     public SingleLiveEvent<BillingFlowParams> buyEvent = new SingleLiveEvent<>();
 
+    public MutableLiveData<String> messageEvent = new MutableLiveData<>();
+
     /**
      * Send an event when the UI should open the Google Play
      * Store for the user to manage their subscriptions.
@@ -198,14 +200,14 @@ public class BillingViewModel extends AndroidViewModel {
         Log.d("Billing", sku + " - isSkuOnServer: " + isSkuOnServer +
                 ", isSkuOnDevice: " + isSkuOnDevice);
         if (isSkuOnDevice && isSkuOnServer) {
-            Log.e("Billing", "You cannot buy a SKU that is already owned: " + sku +
+            e("Billing", "You cannot buy a SKU that is already owned: " + sku +
                     "This is an error in the application trying to use Google Play Billing.");
         } else if (isSkuOnDevice && !isSkuOnServer) {
-            Log.e("Billing", "The Google Play Billing Library APIs indicate that" +
+            e("Billing", "The Google Play Billing Library APIs indicate that" +
                     "this SKU is already owned, but the purchase token is not registered " +
                     "with the server. There might be an issue registering the purchase token.");
         } else if (!isSkuOnDevice && isSkuOnServer) {
-            Log.w("Billing", "WHOA! The server says that the user already owns " +
+            w("Billing", "WHOA! The server says that the user already owns " +
                     "this item: $sku. This could be from another Google account. " +
                     "You should warn the user that they are trying to buy something " +
                     "from Google Play that they might already have access to from " +
@@ -246,7 +248,7 @@ public class BillingViewModel extends AndroidViewModel {
             }
 
             if (skuDetails == null) {
-                Log.e("Billing", "Could not find SkuDetails to make purchase.");
+                e("Billing", "Could not find SkuDetails to make purchase.");
                 return;
             }
 
@@ -264,6 +266,18 @@ public class BillingViewModel extends AndroidViewModel {
             // Send the parameters to the Activity in order to launch the billing flow.
             buyEvent.postValue(billingParams);
         }
+    }
+
+    private void e(String tag, String message) {
+        messageEvent.postValue(message);
+    }
+
+    private void i(String tag, String message) {
+        messageEvent.postValue(message);
+    }
+
+    private void w(String tag, String message) {
+        messageEvent.postValue(message);
     }
 
     /**

@@ -162,6 +162,10 @@ public class MainActivity extends AppCompatActivity {
         billingViewModel.skusWithSkuDetails.observe(this, stringSkuDetailsMap -> {
             Toast.makeText(this, "skuDetails.size=" + stringSkuDetailsMap.keySet().size(), Toast.LENGTH_SHORT).show();
         });
+
+        billingViewModel.messageEvent.observe(this, message -> {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        });
     }
 
     /**
