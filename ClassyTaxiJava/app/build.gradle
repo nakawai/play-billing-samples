@@ -39,10 +39,10 @@ android {
         }
         release {
             def HOME = System.getenv()["HOME"]
-            storeFile file("${HOME}/storeFiles/classytaxi.keystore")
-            storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
-            keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
-            keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+            storeFile file("${HOME}/work/storeFiles/classytaxi.keystore")
+            storePassword System.getenv("CLASSY_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("CLASSY_KEYSTORE_ALIAS")
+            keyPassword System.getenv("CLASSY_KEYSTORE_PRIVATE_KEY_PASSWORD")
         }
     }
 
