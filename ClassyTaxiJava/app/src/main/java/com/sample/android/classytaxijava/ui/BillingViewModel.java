@@ -45,7 +45,7 @@ public class BillingViewModel extends AndroidViewModel {
     /**
      * SkuDetails for all known SKUs.
      */
-    private MutableLiveData<Map<String, SkuDetails>> skusWithSkuDetails;
+    public MutableLiveData<Map<String, SkuDetails>> skusWithSkuDetails;
 
     /**
      * Subscriptions record according to the server.

@@ -151,9 +151,9 @@ public class BillingClientLifecycle implements LifecycleObserver, PurchasesUpdat
                 Log.i(TAG, "onSkuDetailsResponse: " + responseCode + " " + debugMessage);
                 if (skuDetailsList == null) {
                     Log.w(TAG, "onSkuDetailsResponse: null SkuDetails list");
-                    skusWithSkuDetails.postValue(Collections.<String, SkuDetails>emptyMap());
+                    skusWithSkuDetails.postValue(Collections.emptyMap());
                 } else {
-                    Map<String, SkuDetails> newSkusDetailList = new HashMap<String, SkuDetails>();
+                    Map<String, SkuDetails> newSkusDetailList = new HashMap<>();
                     for (SkuDetails skuDetails : skuDetailsList) {
                         newSkusDetailList.put(skuDetails.getSku(), skuDetails);
                     }

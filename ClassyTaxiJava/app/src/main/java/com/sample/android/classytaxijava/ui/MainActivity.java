@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.Purchase;
@@ -150,15 +151,16 @@ public class MainActivity extends AppCompatActivity {
         authenticationViewModel.firebaseUser.observe(this, fireaseUserObserver);
 
         // Update subscription information when user changes.
-        authenticationViewModel.userChangeEvent.observe(this, new Observer<Void>() {
-            @Override
-            public void onChanged(Void aVoid) {
-                subscriptionViewModel.userChanged();
-                List<Purchase> purchases = billingClientLifecycle.purchaseUpdateEvent.getValue();
-                if (purchases != null) {
-                    registerPurchases(purchases);
-                }
+        authenticationViewModel.userChangeEvent.observe(this, aVoid -> {
+            subscriptionViewModel.userChanged();
+            List<Purchase> purchases = billingClientLifecycle.purchaseUpdateEvent.getValue();
+            if (purchases != null) {
+                registerPurchases(purchases);
             }
+        });
+
+        billingViewModel.skusWithSkuDetails.observe(this, stringSkuDetailsMap -> {
+            Toast.makeText(this, "skuDetails.size=" + stringSkuDetailsMap.keySet().size(), Toast.LENGTH_SHORT).show();
         });
     }
 
